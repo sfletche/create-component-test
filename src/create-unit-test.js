@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
+const findInFiles = require('find-in-files');
 
 function writeHandler(err) {
   if(err) {
@@ -13,7 +14,20 @@ function getFileContent(path, content) {
   return `// ${path}\n` + content;
 }
 
-function getContent({ pathToComponent, componentName }) {
+function getComponentTest(renderedComponent) {
+  return `
+  describe('${renderedComponent}', () => {
+    it('is rendered with props', () => {
+      const expectedProps = {
+        someProp: props.props,
+      };
+      expect(component.find('${renderedComponent}').props()).toEqual(expectedProps);
+    });
+  });
+`;
+}
+
+function getContent({ pathToComponent, componentName, renderedComponents }) {
   return `
 import React from 'react';
 import { shallow } from 'enzyme';
@@ -28,14 +42,7 @@ describe('${componentName}', () => {
 
   const component = shallow(<${componentName} {...props} />);
 
-  describe('otherComponent', () => {
-    it('is rendered with props', () => {
-      const expectedProps = {
-        someProp: props.props,
-      };
-      expect(component.find('otherComponent').props()).toEqual(expectedProps);
-    });
-  });
+  ${_.map(renderedComponents, getComponentTest).join('')}
 });
 `;
 }
@@ -54,15 +61,21 @@ function getPascalCase(pathToComponent) {
   return _.startCase(fileName.split('.')[0]).replace(/\s/g, '');
 }
 
-// function getRenderedComponents(pathToComponent) {
-//   fs.readFile(pathToComponent, function (err, data) {
-//     if (err) throw err;
-//     console.log('data', data);
-//     // if(data.indexOf('search string') >= 0){
-//      // console.log(data)
-//     // }
-//   });
-// }
+function getRenderedComponents(pathToComponent) {
+  const matches = [];
+  const myRegexp = RegExp('<([A-Z].*)\/>','g');
+  try {
+    const data = fs.readFileSync(pathToComponent, 'utf8');
+    match = myRegexp.exec(data);
+    while (match != null) {
+      matches.push(match[1].trim());
+      match = myRegexp.exec(data);
+    }
+    return matches;
+  } catch(e) {
+    console.log('Error:', e.stack);
+  }
+}
 
 function createUnitTest({ pathToComponent, dest }) {
   const kebabCase = getKebabCase(pathToComponent);
@@ -71,9 +84,10 @@ function createUnitTest({ pathToComponent, dest }) {
   // console.log('componentName', componentName);
   const path = `${dest}/${kebabCase}-test.js`;
   // console.log('path', path);
-  // const renderedComponents = getRenderedComponents(pathToComponent);
+  const renderedComponents = getRenderedComponents(pathToComponent);
+  console.log('renderedComponents', renderedComponents);
   console.log('creating unit test...')
-  const content = getContent({ pathToComponent, componentName });
+  const content = getContent({ pathToComponent, componentName, renderedComponents });
   fs.writeFile(path, getFileContent(path, content), writeHandler);
 }
 
