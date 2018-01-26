@@ -1,9 +1,9 @@
 const createDirectory = require('./create-directory');
 const createUnitTest = require('./create-unit-test');
 
-function createComponentTests(component, dest) {
+function createComponentTests(pathToComponent, dest) {
   createDirectory(dest);
-  createUnitTest({ component, dest })
+  createUnitTest({ pathToComponent, dest })
 }
 
 module.exports = createComponentTests;
