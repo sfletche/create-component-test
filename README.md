@@ -12,5 +12,7 @@ Automate the creation of automatable component tests
 ```
 
 ## Next Steps
-* still just getting started....
+* ~~read contents of jsx file and return list of rendered components~~
+* read contents of jsx file and return list of components with their props
+* identify necessary props for jsx file
 * Publish as node module
