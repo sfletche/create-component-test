@@ -1,7 +1,8 @@
-const _ = require('lodash');
 const fs = require('fs');
-const path = require('path');
 const findInFiles = require('find-in-files');
+const { getKebabCase, getPascalCase } = require('./helpers')
+const getComponentProps = require('./get-component-props');
+const getRenderedComponents = require('./get-rendered-components');
 
 function writeHandler(err) {
   if(err) {
@@ -14,67 +15,49 @@ function getFileContent(path, content) {
   return `// ${path}\n` + content;
 }
 
+function getPropString(propData) {
+  const { name, value } = propData;
+  const actualValue = value.includes('"') ? value : `props.${value}`;
+  return `\n\t\t\t\t${name}: ${actualValue}`;
+}
+
 function getComponentTest(renderedComponent) {
+  // input { componentName: Signer, props: [{ name: signer, value: signerName }] }
+  const { componentName, props } = renderedComponent
   return `
-  describe('${renderedComponent}', () => {
+  describe('${componentName}', () => {
     it('is rendered with props', () => {
-      const expectedProps = {
-        someProp: props.props,
+      const expectedProps = {${props.map(getPropString)}
+        // TODO: deal with spaces between quotes (string values)
       };
-      expect(component.find('${renderedComponent}').props()).toEqual(expectedProps);
+      expect(component.find('${componentName}').props()).toEqual(expectedProps);
     });
   });
 `;
 }
 
-function getContent({ pathToComponent, componentName, renderedComponents }) {
+function getPropPairs(propData) {
+  return `\n\t\t${propData}`;
+}
+
+function getContent({ pathToComponent, componentName, componentProps, renderedComponents }) {
   return `
 import React from 'react';
 import { shallow } from 'enzyme';
-// FIXME: following from path needs to be fixed
+// TODO: import from path needs to be fixed
 // determine the depth of the dest path and apply to the from path
 import ${componentName} from '../${pathToComponent}';
 
 describe('${componentName}', () => {
-  const props = {
-    prop: true,
+  // TODO: need to determine prop values
+  const props = {${componentProps.map(getPropPairs)}
   };
 
   const component = shallow(<${componentName} {...props} />);
 
-  ${_.map(renderedComponents, getComponentTest).join('')}
+  ${renderedComponents.map(getComponentTest).join('')}
 });
 `;
-}
-
-function getFileNameFromPath(pathToComponent) {
-  return path.parse(pathToComponent).base;
-}
-
-function getKebabCase(pathToComponent) {
-  const fileName = getFileNameFromPath(pathToComponent);
-  return _.kebabCase(fileName.split('.')[0]);
-}
-
-function getPascalCase(pathToComponent) {
-  const fileName = getFileNameFromPath(pathToComponent);
-  return _.startCase(fileName.split('.')[0]).replace(/\s/g, '');
-}
-
-function getRenderedComponents(pathToComponent) {
-  const matches = [];
-  const myRegexp = RegExp('<([A-Z].*)\/>','g');
-  try {
-    const data = fs.readFileSync(pathToComponent, 'utf8');
-    match = myRegexp.exec(data);
-    while (match != null) {
-      matches.push(match[1].trim());
-      match = myRegexp.exec(data);
-    }
-    return matches;
-  } catch(e) {
-    console.log('Error:', e.stack);
-  }
 }
 
 function createUnitTest({ pathToComponent, dest }) {
@@ -84,10 +67,14 @@ function createUnitTest({ pathToComponent, dest }) {
   // console.log('componentName', componentName);
   const path = `${dest}/${kebabCase}-test.js`;
   // console.log('path', path);
+  const componentProps = getComponentProps(pathToComponent);
+  console.log('componentProps', componentProps);
+
   const renderedComponents = getRenderedComponents(pathToComponent);
   console.log('renderedComponents', renderedComponents);
+
   console.log('creating unit test...')
-  const content = getContent({ pathToComponent, componentName, renderedComponents });
+  const content = getContent({ pathToComponent, componentName, componentProps, renderedComponents });
   fs.writeFile(path, getFileContent(path, content), writeHandler);
 }
 
