@@ -8,11 +8,12 @@ Automate the creation of automatable component tests
 > npm install
 > npm link
 // now from any directory you can type
-> componentTests create myComponent.jsx __tests__
+> componentTests create path/to/myComponent.jsx path/to/__tests__
 ```
 
 ## Next Steps
 * ~~read contents of jsx file and return list of rendered components~~
-* read contents of jsx file and return list of components with their props
-* identify necessary props for jsx file
+* ~~read contents of jsx file and return list of components with their props~~
+* ~~identify necessary props for jsx file~~
+* Eat your own dogfood
 * Publish as node module
