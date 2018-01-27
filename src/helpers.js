@@ -15,7 +15,13 @@ function getPascalCase(pathToComponent) {
   return _.startCase(fileName.split('.')[0]).replace(/\s/g, '');
 }
 
+function getDestinationPath({ pathToComponent, dest }) {
+  const kebabCase = getKebabCase(pathToComponent);
+  return `${dest}/${kebabCase}-test.js`;
+}
+
 module.exports = {
   getKebabCase,
   getPascalCase,
+  getDestinationPath,
 };
