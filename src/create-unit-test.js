@@ -18,17 +18,11 @@ function getFileContent(path, content) {
 
 function createUnitTest({ pathToComponent, dest }) {
   const componentName = getPascalCase(pathToComponent);
-  // console.log('componentName', componentName);
   const path = getDestinationPath({ pathToComponent, dest });
-  // console.log('path', path);
 
   const componentProps = getComponentProps(pathToComponent);
-  console.log('componentProps', componentProps);
-
   const renderedComponents = getRenderedComponents(pathToComponent);
-  console.log('renderedComponents', renderedComponents);
 
-  console.log('creating unit test...')
   const content = getContent({ pathToComponent, componentName, componentProps, renderedComponents });
   fs.writeFile(path, getFileContent(path, content), writeHandler);
 }
