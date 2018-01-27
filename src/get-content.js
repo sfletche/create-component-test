@@ -12,7 +12,6 @@ function getComponentTest(renderedComponent) {
   describe('${componentName}', () => {
     it('is rendered with props', () => {
       const expectedProps = {${props.map(getPropString)}
-        // TODO: deal with spaces between quotes (string values)
       };
       expect(component.find('${componentName}').props()).toEqual(expectedProps);
     });
@@ -20,8 +19,31 @@ function getComponentTest(renderedComponent) {
 `;
 }
 
+function getPropValue(propType) {
+  switch (propType.split('.')[0]) {
+    case 'string':
+      return `'asdf'`;
+    case 'bool':
+      return false;
+    case 'array':
+      return [];
+    case 'func':
+      return () => {};
+    case 'number':
+      return 23;
+    case 'object':
+      return {};
+    case 'instanceOf(Date)':
+      return `'2017-07-20'`;
+    default:
+      return 'undefined';
+  }
+}
+
 function getPropPairs(propData) {
-  return `\n\t\t${propData}`;
+  const { propName, propType } = propData;
+  const propValue = getPropValue(propType);
+  return `\n\t\t${propName}: ${propValue}`;
 }
 
 function getContent({ pathToComponent, componentName, componentProps, renderedComponents }) {
@@ -33,12 +55,10 @@ import { shallow } from 'enzyme';
 import ${componentName} from '../${pathToComponent}';
 
 describe('${componentName}', () => {
-  // TODO: need to determine prop values
-  const props = {${componentProps.map(getPropPairs)}
+  const props = {${componentProps.map(getPropPairs)},
   };
 
   const component = shallow(<${componentName} {...props} />);
-
   ${renderedComponents.map(getComponentTest).join('')}
 });
 `;

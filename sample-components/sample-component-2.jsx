@@ -7,7 +7,7 @@ function SampleComponent2({ sentDate, signedDate, signerName }) {
   return (
     <div>
       <Signer signer={signerName} />
-      {sentDate && <StatusDate date={sentDate} status="EmailSent" />}
+      {sentDate && <StatusDate date={sentDate} status="Email Sent" />}
       {signedDate && <StatusDate date={signedDate} status="Signed" />}
 
     </div>

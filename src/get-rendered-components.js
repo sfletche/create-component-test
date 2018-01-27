@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 function getPropObject(propData) {
-  // input "signer={signerName}"
+  // sample input "signer={signerName}"
   const splitProp = propData.split('=');
   return {
     name: splitProp[0],
@@ -10,8 +10,9 @@ function getPropObject(propData) {
 }
 
 function getComponentObject(data) {
-  // input "Signer  signer={signerName}"
-  const splitData = data.split(/\s+/);
+  // sample input "Signer  signer={signerName}"
+  // sample input 'StatusDate date={signedDate} status="Email Sent"'
+  const splitData = data.match(/(?:[^\s"]+|"[^"]*")+/g);
   const componentName = splitData[0];
   const props = splitData.slice(1);
   return {
