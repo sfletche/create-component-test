@@ -16,4 +16,6 @@ Automate the creation of automatable component tests
 * ~~read contents of jsx file and return list of components with their props~~
 * ~~identify necessary props for jsx file~~
 * Eat your own dogfood
+  * Not working for proptypes arrayOf (defining props as only those props within the shape of the array objects)
+  * Need to fix path of imported component to relative path (and we can drop the jsx suffix)
 * Publish as node module
