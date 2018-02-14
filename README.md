@@ -18,4 +18,5 @@ Automate the creation of automatable component tests
 * Eat your own dogfood
   * Not working for proptypes arrayOf (defining props as only those props within the shape of the array objects)
   * Need to fix path of imported component to relative path (and we can drop the jsx suffix)
+  * put component rendering inside beforeEach
 * Publish as node module
