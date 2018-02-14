@@ -20,4 +20,5 @@ Automate the creation of automatable component tests
   * and props are not properly spaced (using tabs instead of spaces?)
   * Need to fix path of imported component to relative path (and we can drop the jsx suffix)
   * put component rendering inside beforeEach
+  * import should destructure in the case of connected components
 * Publish as node module
