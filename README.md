@@ -23,4 +23,5 @@ Automate the creation of automatable component tests
   * import should destructure in the case of connected components
   * use spaces instead of tabs
   * include trailing commas in `expectedProps`
+  * leave off the `.jsx` when importing component into test file
 * Publish as node module
