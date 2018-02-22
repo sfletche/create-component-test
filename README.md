@@ -22,4 +22,5 @@ Automate the creation of automatable component tests
   * put component rendering inside beforeEach
   * import should destructure in the case of connected components
   * use spaces instead of tabs
+  * include trailing commas in `expectedProps`
 * Publish as node module
