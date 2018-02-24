@@ -21,7 +21,7 @@ Automate the creation of automatable component tests
   * Need to fix path of imported component to relative path (and we can drop the jsx suffix)
   * put component rendering inside beforeEach
   * import should destructure in the case of connected components
-  * use spaces instead of tabs
+  * ~~use spaces instead of tabs~~
   * include trailing commas in `expectedProps`
-  * leave off the `.jsx` when importing component into test file
+  * ~~leave off the `.jsx` when importing component into test file~~
 * Publish as node module
