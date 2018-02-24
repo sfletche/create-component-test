@@ -1,3 +1,4 @@
+const _ = require('lodash');
 
 function getPropString(propData) {
   const { name, value } = propData;
@@ -35,7 +36,7 @@ function getPropValue(propType) {
     case 'object':
       return {};
     case 'instanceOf(Date)':
-      return `'2017-07-20'`;
+      return `moment.utc('2017-07-20T12:00:00Z').toDate()`;
     default:
       return 'undefined';
   }
@@ -47,10 +48,17 @@ function getPropPairs(propData) {
   return `\n    ${propName}: ${propValue}`;
 }
 
+function getMomentImport(props) {
+  if (_.some(props, ['propType', 'instanceOf(Date)'])) {
+    return `import moment from 'moment';`;
+  }
+}
+
 function getContent({ pathToComponent, componentName, componentProps, renderedComponents }) {
   const pathToComponentMinusExt = pathToComponent.replace(/\.[^/.]+$/, '')
   return `
 import React from 'react';
+${getMomentImport(componentProps)}
 import { shallow } from 'enzyme';
 // TODO: import from path needs to be fixed
 // determine the depth of the dest path and apply to the from path
@@ -60,7 +68,11 @@ describe('${componentName}', () => {
   const props = {${componentProps.map(getPropPairs)},
   };
 
-  const component = shallow(<${componentName} {...props} />);
+  let component;
+
+  beforeEach(() => {
+    component = shallow(<${componentName} {...props} />);
+  });
   ${renderedComponents.map(getComponentTest).join('')}
 });
 `;
