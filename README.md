@@ -19,7 +19,7 @@ Automate the creation of automatable component tests
   * Not working for proptypes arrayOf (defining props as only those props within the shape of the array objects)
   * and props are not properly spaced (using tabs instead of spaces?)
   * Need to fix path of imported component to relative path (and we can drop the jsx suffix)
-  * put component rendering inside beforeEach
+  * ~~put component rendering inside beforeEach~~
   * import should destructure in the case of connected components
   * ~~use spaces instead of tabs~~
   * include trailing commas in `expectedProps`
