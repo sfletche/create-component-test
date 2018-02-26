@@ -1,6 +1,6 @@
 // sample-components/sample-component-2-test.js
 
-import React from 'react';
+import React from 'react'; 
 import moment from 'moment';
 import { shallow } from 'enzyme';
 // TODO: import from path needs to be fixed
