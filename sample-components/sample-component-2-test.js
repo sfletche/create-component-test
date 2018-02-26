@@ -11,7 +11,6 @@ describe('SampleComponent2', () => {
     signedDate: moment.utc('2017-07-20T12:00:00Z').toDate(),
     signerName: 'asdf',
   };
-
   let component;
 
   beforeEach(() => {
@@ -20,30 +19,27 @@ describe('SampleComponent2', () => {
   
   describe('Signer', () => {
     it('is rendered with props', () => {
-      const expectedProps = {
+      expect(component.find('Signer').props()).toEqual({
         signer: props.signerName,
-      };
-      expect(component.find('Signer').props()).toEqual(expectedProps);
+      });
     });
   });
 
   describe('StatusDate', () => {
     it('is rendered with props', () => {
-      const expectedProps = {
+      expect(component.find('StatusDate').props()).toEqual({
         date: props.sentDate,
         status: "Email Sent",
-      };
-      expect(component.find('StatusDate').props()).toEqual(expectedProps);
+      });
     });
   });
 
   describe('StatusDate', () => {
     it('is rendered with props', () => {
-      const expectedProps = {
+      expect(component.find('StatusDate').props()).toEqual({
         date: props.signedDate,
         status: "Signed",
-      };
-      expect(component.find('StatusDate').props()).toEqual(expectedProps);
+      });
     });
   });
 

@@ -5,9 +5,6 @@ import { shallow } from 'enzyme';
 import SampleComponent1 from '../sample-components/sample-component-1';
 
 describe('SampleComponent1', () => {
-  const props = {
-  };
-
   let component;
 
   beforeEach(() => {
@@ -16,15 +13,13 @@ describe('SampleComponent1', () => {
   
   describe('Logo', () => {
     it('is rendered with props', () => {
-      const expectedProps = {};
-      expect(component.find('Logo').props()).toEqual(expectedProps);
+      expect(component.find('Logo').props()).toEqual({});
     });
   });
 
   describe('Navigation', () => {
     it('is rendered with props', () => {
-      const expectedProps = {};
-      expect(component.find('Navigation').props()).toEqual(expectedProps);
+      expect(component.find('Navigation').props()).toEqual({});
     });
   });
 

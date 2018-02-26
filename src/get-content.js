@@ -15,8 +15,7 @@ function getComponentTest(renderedComponent) {
   return `
   describe('${componentName}', () => {
     it('is rendered with props', () => {
-      const expectedProps = {${props.map(getPropString)}${trailingComma}${closingBracket};
-      expect(component.find('${componentName}').props()).toEqual(expectedProps);
+      expect(component.find('${componentName}').props()).toEqual({${props.map(getPropString)}${trailingComma}${closingBracket});
     });
   });
 `;
@@ -49,6 +48,12 @@ function getPropPairs(propData) {
   return `\n    ${propName}: ${propValue}`;
 }
 
+function getPropsDeclaration(props) {
+  const propPairs = props.map(getPropPairs);
+  const propPairsTrailingComma = propPairs.length ? ',' : '';
+  return propPairs.length ? `const props = {${propPairs},\n  };\n  ` : ``;
+}
+
 function getMomentImport(props) {
   if (_.some(props, ['propType', 'instanceOf(Date)'])) {
     return `import moment from 'moment';`;
@@ -58,8 +63,6 @@ function getMomentImport(props) {
 function getContent({ pathToComponent, componentName, componentProps, renderedComponents }) {
   const pathToComponentMinusExt = pathToComponent.replace(/\.[^/.]+$/, '');
   const hasMoment = _.some(componentProps, ['propType', 'instanceOf(Date)']);
-  const propPairs = componentProps.map(getPropPairs);
-  const propPairsTrailingComma = propPairs.length ? ',' : '';
   return `import React from 'react'; ${hasMoment ? `\nimport moment from 'moment';` : ``}
 import { shallow } from 'enzyme';
 // TODO: import from path needs to be fixed
@@ -67,10 +70,7 @@ import { shallow } from 'enzyme';
 import ${componentName} from '../${pathToComponentMinusExt}';
 
 describe('${componentName}', () => {
-  const props = {${propPairs}${propPairsTrailingComma}
-  };
-
-  let component;
+  ${getPropsDeclaration(componentProps)}let component;
 
   beforeEach(() => {
     component = shallow(<${componentName} {...props} />);

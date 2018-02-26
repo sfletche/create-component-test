@@ -12,7 +12,6 @@ describe('SampleComponent3', () => {
     phone: 'asdf',
     email: 'asdf',
   };
-
   let component;
 
   beforeEach(() => {
