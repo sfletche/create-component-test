@@ -1,5 +1,3 @@
-// sample-components/sample-component-3-test.js
-
 import React from 'react'; 
 import { shallow } from 'enzyme';
 // TODO: import from path needs to be fixed

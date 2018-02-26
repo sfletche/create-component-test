@@ -13,7 +13,7 @@ function writeHandler(err) {
 }
 
 function getFileContent(path, content) {
-  return `// ${path}\n` + content;
+  return content;
 }
 
 function createUnitTest({ pathToComponent, dest }) {
@@ -24,7 +24,7 @@ function createUnitTest({ pathToComponent, dest }) {
   const renderedComponents = getRenderedComponents(pathToComponent);
 
   const content = getContent({ pathToComponent, componentName, componentProps, renderedComponents });
-  fs.writeFile(path, getFileContent(path, content), writeHandler);
+  fs.writeFile(path, content, writeHandler);
 }
 
 module.exports = createUnitTest;

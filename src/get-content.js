@@ -60,8 +60,7 @@ function getContent({ pathToComponent, componentName, componentProps, renderedCo
   const hasMoment = _.some(componentProps, ['propType', 'instanceOf(Date)']);
   const propPairs = componentProps.map(getPropPairs);
   const propPairsTrailingComma = propPairs.length ? ',' : '';
-  return `
-import React from 'react'; ${hasMoment ? `\nimport moment from 'moment';` : ``}
+  return `import React from 'react'; ${hasMoment ? `\nimport moment from 'moment';` : ``}
 import { shallow } from 'enzyme';
 // TODO: import from path needs to be fixed
 // determine the depth of the dest path and apply to the from path

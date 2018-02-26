@@ -1,5 +1,3 @@
-// sample-components/sample-component-2-test.js
-
 import React from 'react'; 
 import moment from 'moment';
 import { shallow } from 'enzyme';
