@@ -8,7 +8,7 @@ function getMomentImport(props) {
   }
 }
 
-function getContent({ pathToComponent, componentName, componentProps, renderedComponents }) {
+function getContent({ pathToComponent, pathToUnitTest, componentName, componentProps, renderedComponents }) {
   const pathToComponentMinusExt = pathToComponent.replace(/\.[^/.]+$/, '');
   const hasMoment = _.some(componentProps, ['propType', 'instanceOf(Date)']);
   return `import React from 'react'; ${hasMoment ? `\nimport moment from 'moment';` : ``}

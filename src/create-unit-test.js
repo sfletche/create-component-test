@@ -12,14 +12,14 @@ function writeHandler(err) {
   console.log("created unit tests!");
 }
 
-function createUnitTest({ pathToComponent, dest }) {
+function createUnitTest({ pathToComponent, pathToUnitTest }) {
   const componentName = getPascalCase(pathToComponent);
-  const path = getDestinationPath({ pathToComponent, dest });
+  const path = getDestinationPath({ pathToComponent, pathToUnitTest });
 
   const componentProps = getComponentProps(pathToComponent);
   const renderedComponents = getRenderedComponents(pathToComponent);
 
-  const content = getContent({ pathToComponent, componentName, componentProps, renderedComponents });
+  const content = getContent({ pathToComponent, pathToUnitTest, componentName, componentProps, renderedComponents });
   fs.writeFile(path, content, writeHandler);
 }
 
