@@ -3,7 +3,7 @@ const findInFiles = require('find-in-files');
 const { getKebabCase, getPascalCase, getDestinationPath } = require('./helpers')
 const getComponentProps = require('./get-component-props');
 const getRenderedComponents = require('./get-rendered-components');
-const getContent = require('./get-content');
+const getContent = require('./content/get-content');
 
 function writeHandler(err) {
   if(err) {
