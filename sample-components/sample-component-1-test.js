@@ -1,4 +1,4 @@
-// sample-components//sample-component-1-test.js
+// sample-components/sample-component-1-test.js
 
 import React from 'react';
 undefined
@@ -20,7 +20,6 @@ describe('SampleComponent1', () => {
   describe('Logo', () => {
     it('is rendered with props', () => {
       const expectedProps = {
-        
       };
       expect(component.find('Logo').props()).toEqual(expectedProps);
     });
@@ -29,7 +28,6 @@ describe('SampleComponent1', () => {
   describe('Navigation', () => {
     it('is rendered with props', () => {
       const expectedProps = {
-        
       };
       expect(component.find('Navigation').props()).toEqual(expectedProps);
     });

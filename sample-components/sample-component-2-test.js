@@ -1,4 +1,4 @@
-// sample-components//sample-component-2-test.js
+// sample-components/sample-component-2-test.js
 
 import React from 'react';
 import moment from 'moment';
@@ -23,7 +23,7 @@ describe('SampleComponent2', () => {
   describe('Signer', () => {
     it('is rendered with props', () => {
       const expectedProps = {
-        signer: props.signerName
+        signer: props.signerName,
       };
       expect(component.find('Signer').props()).toEqual(expectedProps);
     });
@@ -32,7 +32,8 @@ describe('SampleComponent2', () => {
   describe('StatusDate', () => {
     it('is rendered with props', () => {
       const expectedProps = {
-        date: props.sentDate,status: "Email Sent"
+        date: props.sentDate,
+        status: "Email Sent",
       };
       expect(component.find('StatusDate').props()).toEqual(expectedProps);
     });
@@ -41,7 +42,8 @@ describe('SampleComponent2', () => {
   describe('StatusDate', () => {
     it('is rendered with props', () => {
       const expectedProps = {
-        date: props.signedDate,status: "Signed"
+        date: props.signedDate,
+        status: "Signed",
       };
       expect(component.find('StatusDate').props()).toEqual(expectedProps);
     });

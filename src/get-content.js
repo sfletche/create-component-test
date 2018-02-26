@@ -3,7 +3,7 @@ const _ = require('lodash');
 function getPropString(propData) {
   const { name, value } = propData;
   const actualValue = value.includes('"') ? value : `props.${value}`;
-  return `${name}: ${actualValue}`;
+  return `\n        ${name}: ${actualValue}`;
 }
 
 function getComponentTest(renderedComponent) {
@@ -12,8 +12,7 @@ function getComponentTest(renderedComponent) {
   return `
   describe('${componentName}', () => {
     it('is rendered with props', () => {
-      const expectedProps = {
-        ${props.map(getPropString)}
+      const expectedProps = {${props.map(getPropString)},
       };
       expect(component.find('${componentName}').props()).toEqual(expectedProps);
     });

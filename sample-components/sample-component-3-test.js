@@ -1,4 +1,4 @@
-// sample-components//sample-component-3-test.js
+// sample-components/sample-component-3-test.js
 
 import React from 'react';
 undefined
