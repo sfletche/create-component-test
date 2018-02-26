@@ -12,10 +12,6 @@ function writeHandler(err) {
   console.log("created unit tests!");
 }
 
-function getFileContent(path, content) {
-  return content;
-}
-
 function createUnitTest({ pathToComponent, dest }) {
   const componentName = getPascalCase(pathToComponent);
   const path = getDestinationPath({ pathToComponent, dest });
