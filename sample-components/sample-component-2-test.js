@@ -1,9 +1,7 @@
 import React from 'react'; 
 import moment from 'moment';
 import { shallow } from 'enzyme';
-// TODO: import from path needs to be fixed
-// determine the depth of the dest path and apply to the from path
-import SampleComponent2 from '../sample-components/sample-component-2';
+import SampleComponent2 from './sample-components/sample-component-2';
 
 describe('SampleComponent2', () => {
   const props = {
