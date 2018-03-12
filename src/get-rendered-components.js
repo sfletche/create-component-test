@@ -27,7 +27,7 @@ function getRenderedComponents(pathToComponent) {
   const myRegexp = RegExp('<([A-Z].*)\/>','g');
   try {
     const data = fs.readFileSync(pathToComponent, 'utf8');
-    match = myRegexp.exec(data);
+    let match = myRegexp.exec(data);
     while (match != null) {
       // separate component name from attributes
       // Signer signer={signerName} becomes
