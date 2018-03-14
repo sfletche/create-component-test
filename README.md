@@ -13,6 +13,7 @@ Automate the creation of automatable component tests
 
 ## Next Steps
 * Eat your own dogfood
+  * make the path to tests optional -- default to same folder as component
   * add more interesting components to test
   * Enable proptypes arrayOf (defining props as only those props within the shape of the array objects)
   * Enable proptypes shape
