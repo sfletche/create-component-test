@@ -1,7 +1,7 @@
-function getPropValue(propType) {
+function getPropValue(propType, propName) {
   switch (propType.split('.')[0]) {
     case 'string':
-      return `'asdf'`;
+      return `'${propName}'`;
     case 'bool':
       return false;
     case 'array':
@@ -21,7 +21,7 @@ function getPropValue(propType) {
 
 function getPropPairs(propData) {
   const { propName, propType } = propData;
-  const propValue = getPropValue(propType);
+  const propValue = getPropValue(propType, propName);
   return `\n    ${propName}: ${propValue}`;
 }
 
