@@ -35,7 +35,7 @@ function getContent({ pathToComponent, pathToUnitTest, componentName, componentP
 
   return `import React from 'react'; ${hasMoment ? `\nimport moment from 'moment';` : ``}
 import { shallow } from 'enzyme';
-import ${componentName} from '${relativePathToComponent}';
+import ${componentName} from '${relativePathToComponent}${_.kebabCase(componentName)}';
 
 describe('${componentName}', () => {
   ${getPropsDeclaration(componentProps)}let component;
