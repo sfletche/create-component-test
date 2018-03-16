@@ -5,6 +5,10 @@ function getFileNameFromPath(pathToComponent) {
   return path.parse(pathToComponent).base;
 }
 
+function getPathWithoutFileName(pathToComponent) {
+  return path.parse(pathToComponent).dir;
+}
+
 function getKebabCase(pathToComponent) {
   const fileName = getFileNameFromPath(pathToComponent);
   return _.kebabCase(fileName.split('.')[0]);
@@ -24,4 +28,5 @@ module.exports = {
   getKebabCase,
   getPascalCase,
   getDestinationPath,
+  getPathWithoutFileName,
 };
