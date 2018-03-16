@@ -8,10 +8,10 @@ function getMomentImport(props) {
   }
 }
 
-function getPathToComponent(pathToComponent, pathToUnitTest) {
+function getPathToComponent(pathToComponent, pathToUnitTest, componentName) {
   const pathToComponentMinusExt = pathToComponent.replace(/\.[^/.]+$/, '');
   if (pathToComponentMinusExt.indexOf(pathToUnitTest) === 0) {
-    return './';
+    return `./${_.kebabCase(componentName)}`;
   }
   // handling path comparisons similar to the following
   // src/application/provide-documentation/components/emergency-hvac-verification.jsx
@@ -31,11 +31,11 @@ function getPathToComponent(pathToComponent, pathToUnitTest) {
 
 function getContent({ pathToComponent, pathToUnitTest, componentName, componentProps, renderedComponents }) {
   const hasMoment = _.some(componentProps, ['propType', 'instanceOf(Date)']);
-  const relativePathToComponent = getPathToComponent(pathToComponent, pathToUnitTest);
+  const relativePathToComponent = getPathToComponent(pathToComponent, pathToUnitTest, componentName);
 
   return `import React from 'react'; ${hasMoment ? `\nimport moment from 'moment';` : ``}
 import { shallow } from 'enzyme';
-import ${componentName} from '${relativePathToComponent}${_.kebabCase(componentName)}';
+import ${componentName} from '${relativePathToComponent}';
 
 describe('${componentName}', () => {
   ${getPropsDeclaration(componentProps)}let component;
