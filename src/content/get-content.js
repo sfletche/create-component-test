@@ -25,7 +25,7 @@ function getPathToComponent(pathToComponent, pathToUnitTest, componentName) {
   }, 0);
 
   const pathToComponentWithoutDupes = componentPathSegments.slice(dupes).join('/');
-  const relativeLocation = '../'.repeat(testPathSegments.length - dupes);
+  const relativeLocation = '../'.repeat(testPathSegments.length - dupes - 1);
   return `${relativeLocation}${pathToComponentWithoutDupes}`;
 }
 
